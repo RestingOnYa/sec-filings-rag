@@ -33,12 +33,14 @@ def format_context(hits: list[Hit], max_chars: int = 12000) -> str:
 
 class OllamaClient:
     def __init__(self, url: str = "http://localhost:11434", model: str = "qwen3:8b",
-                 temperature: float = 0.0, timeout: int = 300, think: bool | None = False):
+                 temperature: float = 0.0, timeout: int = 300, think: bool | None = False,
+                 num_ctx: int | None = None):
         self.url = url.rstrip("/")
         self.model = model
         self.temperature = temperature
         self.timeout = timeout
         self.think = think
+        self.num_ctx = num_ctx
 
     def chat(self, system: str, user: str, json_mode: bool = False) -> str:
         body = {
@@ -47,6 +49,9 @@ class OllamaClient:
             "stream": False,
             "options": {"temperature": self.temperature},
         }
+        if self.num_ctx:
+            # Ollama silently truncates prompts longer than its default window (4096 on 8 GB cards).
+            body["options"]["num_ctx"] = self.num_ctx
         if self.think is not None:
             body["think"] = self.think  # turn off Qwen3's reasoning trace for speed
         if json_mode:

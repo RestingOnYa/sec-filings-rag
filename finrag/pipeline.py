@@ -35,7 +35,8 @@ class RAGPipeline:
         generator = None
         if with_generator:
             g = cfg.generate
-            llm = OllamaClient(g.ollama_url, g.model, g.temperature, think=g.get("think", False))
+            llm = OllamaClient(g.ollama_url, g.model, g.temperature, think=g.get("think", False),
+                               num_ctx=g.get("num_ctx"))
             generator = Generator(llm, g.max_context_chars)
         return cls(retriever, generator)
 

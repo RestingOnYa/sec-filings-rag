@@ -22,9 +22,9 @@ def parse_pdf(path: str | Path, backend: str = "pymupdf") -> list[Page]:
 
 
 def _parse_pymupdf(path: Path) -> list[Page]:
-    import fitz  # PyMuPDF
+    import pymupdf
 
-    with fitz.open(path) as doc:
+    with pymupdf.open(path) as doc:
         return [Page(path.stem, i, p.get_text("text")) for i, p in enumerate(doc)]
 
 

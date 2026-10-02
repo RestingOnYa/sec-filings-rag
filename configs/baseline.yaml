@@ -34,6 +34,7 @@ generate:
   model: qwen3:8b
   temperature: 0.0
   max_context_chars: 12000
+  num_ctx: 8192             # Ollama defaults to 4096 on 8 GB cards; 12k chars of context can exceed it
 
 judge:
   model: qwen3:14b          # use a bigger model than the generator

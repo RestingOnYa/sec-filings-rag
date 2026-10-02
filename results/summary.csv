@@ -1,0 +1,2 @@
+timestamp,config,questions,n,doc_hit,recall@1,recall@5,mrr,accuracy,refusal_rate,p50_s,p95_s
+20261002-005025,baseline_dense,financebench,30,0.9333,0.2,0.5,0.3178,0.4,0.2,8.616,14.585
