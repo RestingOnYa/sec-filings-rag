@@ -1,0 +1,32 @@
+[project]
+name = "finrag"
+version = "0.1.0"
+description = "Fully local RAG over SEC filings, evaluated on FinanceBench"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+    "tqdm>=4.66",
+    "pymupdf>=1.24",
+    "sentence-transformers>=3.0",
+    "qdrant-client>=1.9",
+]
+
+[project.optional-dependencies]
+docling = ["docling>=2.0"]
+app = ["fastapi>=0.110", "uvicorn>=0.29", "streamlit>=1.35"]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+finrag = "finrag.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["finrag*"]
+
+[tool.ruff]
+line-length = 100

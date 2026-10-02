@@ -1,0 +1,15 @@
+# Config 3: dense + BM25 fused with RRF, then cross-encoder reranking.
+# Inherits everything from baseline.yaml and overrides the keys below.
+extends: baseline.yaml
+name: hybrid_rerank
+index_dir: data/index/baseline   # same chunks + embeddings, so reuse the index
+
+retrieve:
+  dense_k: 50
+  bm25_k: 50
+  fusion: rrf
+  final_k: 5
+
+rerank:
+  enabled: true
+  candidates: 50

@@ -1,0 +1,39 @@
+# Config 1: fixed-size chunks + dense retrieval only.
+name: baseline_dense
+data_dir: data
+index_dir: data/index/baseline
+
+parse:
+  backend: pymupdf          # pymupdf | docling
+
+chunk:
+  strategy: fixed           # fixed | section
+  size_tokens: 512
+  overlap_tokens: 64
+
+embed:
+  model: BAAI/bge-m3
+  batch_size: 16
+  device: null              # null = auto (cuda / mps / cpu)
+
+retrieve:
+  dense_k: 5
+  bm25_k: 0                 # 0 disables BM25
+  fusion: none              # none | rrf
+  rrf_k: 60
+  filter_by_doc: false      # restrict search to the question's filing
+  final_k: 5
+
+rerank:
+  enabled: false
+  model: BAAI/bge-reranker-v2-m3
+  candidates: 50
+
+generate:
+  ollama_url: http://localhost:11434
+  model: qwen3:8b
+  temperature: 0.0
+  max_context_chars: 12000
+
+judge:
+  model: qwen3:14b          # use a bigger model than the generator
